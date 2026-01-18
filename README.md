@@ -1,174 +1,183 @@
-# Usher - Chrome Plugin
+# Usher - AI-Powered Link Summaries for Chrome
 
-**Version 3.0** - Adds hover-based summary trigger while keeping right-click functionality
+> Get instant AI summaries of any hyperlink without leaving your page
 
-## What's New in V2
+Usher is a Chrome extension that provides instant AI-powered summaries of any link on a webpage. Simply hover over a link or right-click to get context about where it leads—without opening a new tab.
 
-### Hover Trigger
-- **Hover over any link** for 500ms → summary appears automatically
-- No need to right-click!
-- Summary positioned intelligently next to the hyperlinked word
-
-### Both Methods Work
-- **Hover** (new): Fast preview by hovering over links
-- **Right-click** (V1): Context menu "Summarize with Usher" still available
-
-### Extension Icons
-- Clean, brutalist "U" logo
-- Visible in Chrome toolbar and extensions page
-
-## Installation
-
-### Step 1: Generate Icons (One-Time Setup)
-1. Open `ICON_GENERATION.md` for instructions
-2. Convert `icons/icon.svg` to PNG (16px, 48px, 128px)
-3. Place PNG files in `icons/` folder
-
-### Step 2: Load Extension
-1. Open Chrome and go to `chrome://extensions`
-2. Enable "Developer mode" (toggle in top-right)
-3. Click "Load unpacked"
-4. Select the `Usher_V2_Hover` folder
-5. Extension should appear in your toolbar
-
-## Usage
-
-### Toggle Button (Manual Control)
-A floating **"U"** button appears in the bottom-right corner:
-- **Green** = Hover summaries enabled for this site
-- **Gray** = Hover summaries disabled
-- **Star (★)** = Manual override active
-- Click to toggle on/off for the current website
-- Preference saves automatically per domain
-
-### Method 1: Hover (Fast Preview - Auto-Enabled on Articles)
-1. Hover your mouse over any hyperlink on an article/blog/doc page
-2. Wait 500ms (half a second)
-3. Summary appears next to the link
-4. Move mouse away to close, or move to summary box to keep it open
-
-**Auto-Detection**: Hover only works on content-rich pages (articles, blogs, documentation) to prevent annoying triggers on landing pages. Use the toggle button to manually enable/disable on any page.
-
-### Method 2: Right-Click (Works Everywhere)
-1. Right-click on any hyperlink
-2. Click "Summarize with Usher"
-3. Summary appears next to the link
 
 ## Features
 
-- ✅ **STRICT content detection** - Hover only on articles/blogs/docs (not landing pages)
-- ✅ **Manual toggle button** - Override auto-detection for any website
-- ✅ **Per-domain preferences** - Toggle settings save automatically per site
-- ✅ **500ms hover delay** - Prevents accidental triggers
-- ✅ **Smart positioning** - Summary appears RIGHT → LEFT → ABOVE → BELOW based on space
-- ✅ **Persistent summaries** - Move mouse to summary box to keep it open
-- ✅ **Instant cache hits** - Repeated links load instantly
-- ✅ **Context-aware** - Uses surrounding text for better summaries
-- ✅ **Both triggers work** - Use hover OR right-click
+- **Hover Summaries** - Hover over any link for 500ms to see an instant AI summary
+- **Right-Click Summaries** - Classic context menu option available everywhere
+- **Smart Content Detection** - Automatically enables on articles/blogs, stays quiet on landing pages
+- **Manual Toggle** - Override auto-detection with a floating toggle button
+- **Lightning Fast** - <1 second for new links, <150ms for cached content
+- **Context-Aware** - Uses surrounding text to provide relevant summaries
+- **Privacy-First** - No tracking, no data collection
+- **Free Forever** - Powered by Cloudflare Workers AI (free tier)
 
-## Architecture
+## Demo
 
-Same Cloudflare Workers AI backend as V1:
-- **Llama 3.1 8B Instruct** for AI summaries
-- **KV caching** (7-day TTL)
-- **localStorage caching** (24-hour TTL)
-- **<1 second latency** for new links
-- **<150ms for cached** links
+Try Usher on:
+- Wikipedia articles
+- Medium blog posts
+- News websites
+- Technical documentation
+- Any webpage with hyperlinks
 
-## Differences from V1
+## Installation
 
-| Feature | V1 (Right-Click Only) | V2 (Hover + Right-Click) |
-|---------|----------------------|--------------------------|
-| Trigger | Right-click menu only | Hover (500ms) OR right-click |
-| Icon | No icon | Brutalist "U" logo |
-| Version | 2.5 | 3.0 |
-| Location | `Usher_V0_MVP/` | `Usher_V2_Hover/` |
+1. **Clone this repository**
+   ```bash
+   git clone https://github.com/rondevid25/Usher_hover.git
+   cd Usher_hover
+   ```
 
-## Files Structure
+2. **Open Chrome Extensions**
+   - Navigate to `chrome://extensions` in Chrome
+   - Enable "Developer mode" (toggle in top-right corner)
+
+3. **Load the Extension**
+   - Click "Load unpacked"
+   - Select the repository folder
+   - Usher icon should appear in your toolbar
+
+
+## Usage
+
+### 🎯 Quick Start
+
+**Method 1: Hover (Fastest)**
+1. Visit any article or blog post
+2. Hover your mouse over any hyperlink
+3. Wait 500ms (half a second)
+4. AI summary appears next to the link
+
+**Method 2: Right-Click (Classic)**
+1. Right-click on any link
+2. Select "Summarize with Usher"
+3. Summary appears instantly
+
+### 🎛️ Toggle Button
+
+A floating **"U"** button appears in the bottom-right corner:
+
+- **🟢 Green** = Hover summaries enabled for this site
+- **⚫ Gray** = Hover summaries disabled
+- **⭐ Star** = Manual override active
+
+Click to toggle hover summaries on/off for the current website. Your preference is saved per domain.
+
+### 📍 Auto-Detection
+
+Usher intelligently detects content-rich pages:
+
+**Auto-Enabled on:**
+- Wikipedia articles
+- Medium posts
+- Blog articles
+- Documentation pages
+- News articles
+
+**Auto-Disabled on:**
+- Homepage/landing pages
+- Pricing pages
+- Login/signup pages
+- Dashboards
+- E-commerce checkouts
+
+Use the toggle button to override auto-detection on any page.
+
+## How It Works
 
 ```
-Usher_V2_Hover/
-├── manifest.json          (v3.0, with icons)
-├── background.js          (hover handler added)
-├── content.js             (hover detection added)
-├── test.html              (testing page)
-├── icons/
-│   ├── icon.svg           (source logo)
-│   ├── icon-16.png        (toolbar icon)
-│   ├── icon-48.png        (extensions page)
-│   └── icon-128.png       (web store)
-├── ICON_GENERATION.md     (icon setup guide)
-└── README.md              (this file)
+User hovers over link
+         ↓
+Extension extracts context (anchor text + surrounding sentences)
+         ↓
+Check local cache (instant if cached)
+         ↓
+POST to Cloudflare Worker
+         ↓
+Worker checks KV cache (global CDN cache)
+         ↓
+Worker fetches & summarizes with Llama 3.1 8B
+         ↓
+Summary returned & cached
+         ↓
+Display summary next to link
 ```
 
-## Testing
 
-1. Load extension in Chrome
-2. Open `test.html` in the extension folder
-3. Try both methods:
-   - Hover over links (wait 500ms)
-   - Right-click on links
-4. Test on real websites (Wikipedia, news sites, etc.)
+## Privacy & Security
 
-## Cost
+- ✅ **No tracking** - No analytics, no user data collection
+- ✅ **No account required** - Install and use immediately
+- ✅ **Minimal permissions** - Only requests necessary Chrome APIs
+- ✅ **Open source** - Audit the code yourself
+- ✅ **Secure communication** - HTTPS-only API calls
 
-- **Free tier**: 10,000 requests/day
-- **Expected usage**: ~2,000 requests/day (100 users with hover)
-- **Cost**: $0/month (within free tier)
+Usher only sends:
+- URL of the link you're summarizing
+- Anchor text of the link
+- 2 sentences before/after the link (for context)
 
-## Troubleshooting
+No personal data, browsing history, or page content is collected.
 
-### Hover not working on a page
-1. **Check the toggle button** (bottom-right corner):
-   - Green = hover enabled
-   - Gray = hover disabled
-   - Click to toggle on/off
-2. **Auto-detection**: Hover only works on content-rich pages by default
-   - Works on: Wikipedia articles, Medium posts, blog posts, documentation
-   - Doesn't work on: Homepages, pricing pages, dashboards, login pages
-3. **Manual override**: Click the toggle button to force-enable on any page
+## Contributing
 
-### Summary doesn't appear on hover
-- **Wait full 500ms** - Move mouse and keep it still over link
-- Check if extension is loaded (icon in toolbar)
-- Try right-click method to verify extension works
-- Check browser console (F12) for detection log: `Usher: Auto-detected=...`
+Contributions are welcome! Here's how you can help:
 
-### Toggle button missing
-- Button won't appear on login/admin/dashboard pages
-- Reload the page after installing extension
-- Check if extension is active in `chrome://extensions`
+1. **Report bugs** - Open an issue with reproduction steps
+2. **Suggest features** - Share your ideas in discussions
+3. **Submit PRs** - Fork, make changes, and submit a pull request
+4. **Improve docs** - Help make this README better
 
-### Right-click menu missing
-- Extension may not be loaded
-- Reload extension in `chrome://extensions`
-- Check permissions in manifest.json
+### Development Guidelines
 
-### Icons not showing
-- Verify PNG files exist in `icons/` folder
-- Check filenames: `icon-16.png`, `icon-48.png`, `icon-128.png`
-- Reload extension after adding icons
+- Follow existing code style (brutalist, minimal)
+- Test on multiple websites before submitting
+- Update README if adding new features
+- Keep dependencies minimal (currently zero)
 
-## Development
 
-### V1 (Baseline)
-Location: `/Users/apple/Documents/Usher_V0_MVP/`
-- Right-click trigger only
-- Version 2.5
-- Fully functional, unchanged
+## FAQ
 
-### V2 (This Version)
-Location: `/Users/apple/Documents/Usher_V2_Hover/`
-- Hover + right-click triggers
-- Version 3.0
-- Extension icons added
+**Q: Is this free?**
+A: Yes, completely free forever. Powered by Cloudflare Workers' free tier.
+
+**Q: Does it work on all websites?**
+A: May not work in paywalled URLs. Hover auto-enables only on content-rich pages (articles, blogs, docs).
+
+**Q: Can I disable hover and only use right-click?**
+A: Yes! Click the toggle button to disable hover for any site.
+
+**Q: Does it work offline?**
+A: Cached summaries work offline. New links require internet connection.
+
+**Q: How accurate are the summaries?**
+A: Powered by Llama 3.1 8B - highly accurate for most content. Quality improves with better anchor text context.
+
+**Q: Can I use this on mobile?**
+A: Not yet. Chrome extensions don't support hover on mobile. Right-click functionality may work on tablets.
 
 ## Credits
 
-- **AI Model**: Llama 3.1 8B Instruct (Cloudflare Workers AI)
-- **Backend**: Cloudflare Workers + KV Storage
-- **Design**: Brutalist aesthetic, minimal and functional
+- **AI Model**: Llama 3.1 8B Instruct (Meta)
+- **Backend**: Cloudflare Workers AI
+- **Design**: Brutalist aesthetic
+- **Inspiration**: Desire to read faster and browse smarter
+
+
+
+## Support
+
+- 🐛 **Bug reports**: [Open an issue](https://github.com/rondevid25/Usher_hover/issues)
+- 💡 **Feature requests**: [Start a discussion](https://github.com/rondevid25/Usher_hover/discussions)
+- 📧 **Contact**: insaneswithbrains@gmail.com
 
 ---
 
-**Note**: V1 and V2 are completely separate builds. You can load either one, or both simultaneously for comparison.
+**Made by Ronak D 
+
+*If Usher helps you browse faster, give it a ⭐ on GitHub!*
