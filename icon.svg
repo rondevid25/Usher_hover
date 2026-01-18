@@ -1,0 +1,10 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Brutalist black background -->
+  <rect width="128" height="128" fill="#000000"/>
+
+  <!-- White "U" letter - bold and brutalist -->
+  <path d="M 30 30 L 30 75 Q 30 98 64 98 Q 98 98 98 75 L 98 30 L 82 30 L 82 75 Q 82 85 64 85 Q 46 85 46 75 L 46 30 Z" fill="#FFFFFF"/>
+
+  <!-- Small accent dot (representing summary) -->
+  <circle cx="64" cy="110" r="5" fill="#FFFFFF"/>
+</svg>
