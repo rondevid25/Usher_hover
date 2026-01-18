@@ -1,4 +1,4 @@
-# Usher V2 - Hover-Triggered Link Summaries
+# Usher - Chrome Plugin
 
 **Version 3.0** - Adds hover-based summary trigger while keeping right-click functionality
 
