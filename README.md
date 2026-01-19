@@ -19,11 +19,10 @@ Usher is a Chrome extension that provides instant AI-powered summaries of any li
 ## Demo
 
 Try Usher on:
-- Wikipedia articles
+- Substack
 - Medium blog posts
 - News websites
 - Technical documentation
-- Any webpage with hyperlinks
 
 ## Installation
 
@@ -62,52 +61,13 @@ Try Usher on:
 
 A floating **"U"** button appears in the bottom-right corner:
 
-- **🟢 Green** = Hover summaries enabled for this site
-- **⚫ Gray** = Hover summaries disabled
-- **⭐ Star** = Manual override active
-
 Click to toggle hover summaries on/off for the current website. Your preference is saved per domain.
 
 ### 📍 Auto-Detection
 
-Usher intelligently detects content-rich pages:
-
-**Auto-Enabled on:**
-- Wikipedia articles
-- Medium posts
-- Blog articles
-- Documentation pages
-- News articles
-
-**Auto-Disabled on:**
-- Homepage/landing pages
-- Pricing pages
-- Login/signup pages
-- Dashboards
-- E-commerce checkouts
+Usher intelligently detects content-rich pages.
 
 Use the toggle button to override auto-detection on any page.
-
-## How It Works
-
-```
-User hovers over link
-         ↓
-Extension extracts context (anchor text + surrounding sentences)
-         ↓
-Check local cache (instant if cached)
-         ↓
-POST to Cloudflare Worker
-         ↓
-Worker checks KV cache (global CDN cache)
-         ↓
-Worker fetches & summarizes with Llama 3.1 8B
-         ↓
-Summary returned & cached
-         ↓
-Display summary next to link
-```
-
 
 ## Privacy & Security
 
